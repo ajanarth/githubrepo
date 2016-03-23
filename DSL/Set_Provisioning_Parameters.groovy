@@ -6,6 +6,7 @@
       	stringParam('FMW_SERVER_NAME', '', 'Fusion MiddleWare server name')
 		stringParam('SUBNET_ID', '', 'Fusion MiddleWare database name')
       	stringParam('SECURITY_GROUP_ID', '', 'Fusion MiddleWare server name')
+		stringParam('AVAILABILITY_ZONE', '', 'Fusion MiddleWare server name')
     }
     multiscm {
 
