@@ -1,4 +1,4 @@
-folder('Create_Environment_1') {
+folder('Environment_Provisioning') {
     configure { folder ->
         folder / icon(class: 'org.example.MyFolderIcon')
     }

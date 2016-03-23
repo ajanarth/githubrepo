@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Smoke_Test') {
+freeStyleJob('Environment_Provisioning/Smoke_Test') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

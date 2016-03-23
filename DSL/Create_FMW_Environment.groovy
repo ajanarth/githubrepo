@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Create_FMW_Environment') {
+freeStyleJob('Environment_Provisioning/Create_FMW_Environment') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

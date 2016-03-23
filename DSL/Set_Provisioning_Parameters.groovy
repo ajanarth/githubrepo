@@ -1,4 +1,4 @@
-	freeStyleJob('Create_Environment_1/Set_Provisioning_Parameters') {
+	freeStyleJob('Environment_Provisioning/Set_Provisioning_Parameters') {
     logRotator(-1, 10)
     parameters {
         stringParam('FMW_DB_NAME', '', 'Fusion MiddleWare database name')
@@ -9,23 +9,12 @@
         git {
          
             remote {
-                url('http://john.smith@10.0.3.70/gerrit/cookbooks/launch_ec2.git')
-              credentials('f5aef68c-243d-400f-b43f-c7abfc714309')
+                url('git@gitlab:root/platform-management.git')
+              credentials('adop-jenkins-master')
                branch("*/master")
             }
             extensions {
               relativeTargetDirectory('$WORKSPACE/chef-repo/cookbooks/launch_ec2')
-            }
-        }
-        git {
-            remote {
-                url('http://john.smith@10.0.3.70/gerrit/p/jenkins/scripts.git')
-              credentials('f5aef68c-243d-400f-b43f-c7abfc714309')
-               branch("*/master")
-            }
-               extensions {
-                relativeTargetDirectory('$WORKSPACE/jenkins_script')
-            
             }
         }
     }
@@ -34,6 +23,11 @@
 		shell('''#!/bin/bash 
 			# cd $WORKSPACE
 			#./FMW_Instance_Create.sh $WORKSPACE
+			cd ~
+			mkdir .aws
+			cd .aws
+			echo ""
+			
 			
 			## Create the chef-solo configuration file
 			touch 'chef-repo/solo.rb'

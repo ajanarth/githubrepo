@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Requirement_Preparation') {
+freeStyleJob('Environment_Provisioning/Requirement_Preparation') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

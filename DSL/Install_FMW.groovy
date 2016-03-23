@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Install_FMW') {
+freeStyleJob('Environment_Provisioning/Install_FMW') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

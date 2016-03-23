@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Check_Instance_Status') {
+freeStyleJob('Environment_Provisioning/Check_Instance_Status') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

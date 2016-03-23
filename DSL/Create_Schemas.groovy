@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Create_Schemas') {
+freeStyleJob('Environment_Provisioning/Create_Schemas') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')

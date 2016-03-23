@@ -1,4 +1,4 @@
-freeStyleJob('Create_Environment_1/Create_SOA_Domain') {
+freeStyleJob('Environment_Provisioning/Create_SOA_Domain') {
 	customWorkspace('$CUSTOM_WORKSPACE')
     logRotator(-1, 10)
     label('docker')
