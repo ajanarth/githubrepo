@@ -18,7 +18,8 @@ freeStyleJob('Environment_Provisioning/Create_FMW_Environment') {
 				condition('SUCCESS')
                    parameters{
                        currentBuild()
-						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')					   
+						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')
+						predefinedProp('AWS_PEM', '/etc/fmw_oracle.pem')						
                    }//propertiesFile('$WORKSPACE/build.properties', false)                      			
 			}
 		}

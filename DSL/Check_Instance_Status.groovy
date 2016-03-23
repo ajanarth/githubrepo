@@ -18,7 +18,8 @@ freeStyleJob('Environment_Provisioning/Check_Instance_Status') {
 				condition('SUCCESS')
                    parameters{
                        currentBuild()
-						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')					   
+						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')
+						predefinedProp('AWS_PEM', '/etc/fmw_oracle.pem')						
                    }//propertiesFile('$WORKSPACE/build.properties', false)                      			
 			}
 		}
