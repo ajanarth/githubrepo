@@ -22,7 +22,7 @@ sudo echo "	\"jenkins_server_instance_ip\": \"$SERVER_INSTANCEIP\"", 		>> $JSONF
 sudo echo "	\"jenkins_db_instance_ip\": \"$DB_INSTANCEIP\""	 		        >> $JSONFILE
 sudo echo "}" 															    >> $JSONFILE
 
-cd $WORKSPACE/jenkins_script
+cd $2/jenkins_script
 sudo chmod 775 chef-solo_prep.sh
 
 #Copy Json files to fmw server
@@ -36,6 +36,3 @@ ssh -tt ec2-user@${SERVER_INSTANCEIP} -o StrictHostKeyChecking=no -i $1 'sudo su
 
 # Run Chef cookbook to prepare requirements needed 
 ssh -tt ec2-user@${SERVER_INSTANCEIP} -o StrictHostKeyChecking=no -i $1 'sudo su -c "cd /etc/chef/chef-repo && chef-solo -c solo.rb -o oracle_fmw::prep -j /tmp/instance_ip.json" root'
-
-
-
