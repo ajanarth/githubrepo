@@ -14,7 +14,7 @@
                branch("*/master")
             }
             extensions {
-              relativeTargetDirectory('$WORKSPACE/chef-repo/cookbooks/launch_ec2')
+              relativeTargetDirectory('$WORKSPACE')
             }
         }
     }
