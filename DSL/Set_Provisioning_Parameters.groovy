@@ -4,6 +4,8 @@
     parameters {
         stringParam('FMW_DB_NAME', '', 'Fusion MiddleWare database name')
       	stringParam('FMW_SERVER_NAME', '', 'Fusion MiddleWare server name')
+		stringParam('SUBNET_ID', '', 'Fusion MiddleWare database name')
+      	stringParam('SECURITY_GROUP_ID', '', 'Fusion MiddleWare server name')
     }
     multiscm {
 
@@ -45,10 +47,14 @@
 			require 'json'
 			FMW_DB_NAME=`echo $FMW_DB_NAME`.strip
 			FMW_SERVER_NAME=`echo $FMW_SERVER_NAME`.strip
+                        SECURITY_GROUP_ID=`echo $SECURITY_GROUP_ID`.strip
+                        SUBNET_ID=`echo $SUBNET_ID`.strip
 			WORKSPACE=`echo $WORKSPACE/instance_name.json`.strip
 			jsonfile = {
 				"jenkins_db_instance_name" => [FMW_DB_NAME],
-			"jenkins_server_instance_name" => [FMW_SERVER_NAME]
+			"jenkins_server_instance_name" => [FMW_SERVER_NAME],
+                        "security_group" => [SECURITY_GROUP_ID],
+                        "subnet_id" => [SUBNET_ID]
 			}
 			File.open(WORKSPACE,"w+") do |f|
 			f.write(JSON.pretty_generate(jsonfile))
