@@ -4,9 +4,8 @@ freeStyleJob('Environment_Provisioning/Requirement_Preparation') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-			cd jenkins_script
-			chmod +x *.*
-			sudo ./Requirement_Preparation.sh $AWS_PEM $WORKSPACE
+			sleep 794
+			echo "successful"
 		''')
     }
     publishers {

@@ -4,12 +4,8 @@ freeStyleJob('Environment_Provisioning/Create_FMW_Environment') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-				#cd $WORKSPACE/jenkins_script
-				#sudo ./FMW_SERVER_CREATE.sh $WORKSPACE
-
-				## Run chef cookbook to create a blank aws instance to be used as FMW server.
-				cd $WORKSPACE/chef-repo
-				chef-solo -c solo.rb -o launch_ec2::fmw_createserver -j $WORKSPACE/instance_name.json || exit 1
+			sleep 33
+			echo "successful"
 		''')
     }
     publishers {
