@@ -5,6 +5,7 @@ freeStyleJob('Environment_Provisioning/Requirement_Preparation') {
     steps {
     shell('''#!/bin/bash
 			cd jenkins_script
+			chmod +x *.*
 			sudo ./Requirement_Preparation.sh $AWS_PEM $WORKSPACE
 		''')
     }

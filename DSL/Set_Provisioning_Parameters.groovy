@@ -1,5 +1,6 @@
 	freeStyleJob('Environment_Provisioning/Set_Provisioning_Parameters') {
     logRotator(-1, 10)
+	
     parameters {
         stringParam('FMW_DB_NAME', '', 'Fusion MiddleWare database name')
       	stringParam('FMW_SERVER_NAME', '', 'Fusion MiddleWare server name')
@@ -55,6 +56,9 @@
 			''')
  	
     }
+	wrappers {
+      preBuildCleanup() 
+	}
     publishers {
 			downstreamParameterized {
 					trigger('Create_FMW_Environment') {
