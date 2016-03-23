@@ -9,14 +9,4 @@ freeStyleJob('Environment_Provisioning/Smoke_Test') {
 
 		''')
     }
-    publishers {
-		publishHtml {
-            report('$WORKSPACE') {
-                reportName('Report.html')
-            }
-            report('test') {
-                reportName('HTML Report')
-            }
-        }
-    }
 }
