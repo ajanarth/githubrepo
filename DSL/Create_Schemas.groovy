@@ -4,7 +4,7 @@ freeStyleJob('Environment_Provisioning/Create_Schemas') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-			sleep 555
+			sleep 375
 			echo "successful"
 		''')
     }

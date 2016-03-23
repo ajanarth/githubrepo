@@ -4,7 +4,7 @@ freeStyleJob('Environment_Provisioning/Requirement_Preparation') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-			sleep 794
+			sleep 734
 			echo "successful"
 		''')
     }

@@ -4,7 +4,7 @@ freeStyleJob('Environment_Provisioning/Create_SOA_Domain') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-			sleep 728
+			sleep 548
 			echo "successful"
 		''')
     }
