@@ -23,12 +23,10 @@
 		shell('''#!/bin/bash 
 			# cd $WORKSPACE
 			#./FMW_Instance_Create.sh $WORKSPACE
-			cd ~
-			mkdir .aws
-			cd .aws
-			echo ""
-			
-			
+			cd $WORKSPACE/githubrepo
+			sudo cp -R chef-repo $WORKSPACE
+			sudo cp -R jenkins_script $WORKSPACE
+									
 			## Create the chef-solo configuration file
 			touch 'chef-repo/solo.rb'
 			echo 'file_cache_path "'"$WORKSPACE/chef-repo"'"' > 'chef-repo/solo.rb'
