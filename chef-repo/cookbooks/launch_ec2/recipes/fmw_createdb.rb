@@ -17,6 +17,8 @@ if node['jenkins_db_instance_name'].empty?
 else
 
 	node['jenkins_db_instance_name'].each do |instance_name|
+	node['security_group'].each do |security_group|
+	node['subnet_id'].each do |subnet_id|
 	require 'mixlib/shellout'
 	
 	ruby_block "CREATE_EC2_INSTANCE" do
@@ -27,7 +29,7 @@ else
 			
 			
 			$INSTANCE_ID=`aws ec2 run-instances --image-id #{node[:launch_ec2][:db][:ami]} --count #{node[:launch_ec2][:db][:count]} --instance-type #{node[:launch_ec2][:db][:type]}  \
-			--placement AvailabilityZone=#{node[:launch_ec2][:db][:availability_zone]} --security-group-ids #{node[:launch_ec2][:db][:sgi]} --subnet-id #{node[:launch_ec2][:db][:subnetid]} \
+			--placement AvailabilityZone=#{node[:launch_ec2][:db][:availability_zone]} --security-group-ids #{security_group} --subnet-id #{subnet_id} \
 			--key-name #{node[:launch_ec2][:db][:keyname]} | grep INSTANCES | awk '{print $7}'`
 			
 			instanceid="#{$INSTANCE_ID.strip}"
@@ -60,7 +62,8 @@ else
 			instanceip="#{$INSTANCEIP.strip}"
 			puts "\nIPADDRESS #{instanceip}"
 
-			
+			end
+			end
 		end
 	end
 	end
