@@ -31,9 +31,13 @@
 			# cd $WORKSPACE
 			#./FMW_Instance_Create.sh $WORKSPACE
 			cd $WORKSPACE/githubrepo
-			sudo cp -R chef-repo $WORKSPACE
-			sudo cp -R jenkins_script $WORKSPACE
-			sudo cp -R provision-oracle-fmw $WORKSPACE
+			#sudo cp -R chef-repo $WORKSPACE
+			#sudo cp -R jenkins_script $WORKSPACE
+			#sudo cp -R provision-oracle-fmw $WORKSPACE
+			
+			cp -R chef-repo $WORKSPACE
+			cp -R jenkins_script $WORKSPACE
+			cp -R provision-oracle-fmw $WORKSPACE
 									
 			## Create the chef-solo configuration file
 			touch 'chef-repo/solo.rb'
