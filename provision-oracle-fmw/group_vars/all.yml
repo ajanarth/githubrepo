@@ -1,0 +1,16 @@
+##
+# All of these values can be overriden by using extra vars for ansible
+# Example: ansible-playbook provision.yml --extra-vars "aws_region=us-east-1 volume_size=1000"
+
+# ec2 
+ansible_user: ec2-user
+aws_region: eu-west-1
+key_name: adop_oraclecmt_key # pre created ec2-key pair
+security_group: oracle_ebs_security_group # pre created security group
+instance_type: m3.large
+#ami_id: ami-8d62d0fe # ORA EBS Rhel 7 eu-west ami
+ami_id: ami-8b8c57f8 # Rhel 7 eu-west ami
+volume_device_name: '/dev/sda1'
+volume_type: 'gp2'
+volume_size: 700
+vpc_subnet_id: 'subnet-d8878eaf'
