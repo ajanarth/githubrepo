@@ -30,5 +30,5 @@ fi
         credentialsBinding {
             usernamePassword("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "aws-environment-provisioning")
         }
-	
+	}
 }
