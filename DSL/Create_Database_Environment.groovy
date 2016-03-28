@@ -4,24 +4,31 @@ freeStyleJob('Environment_Provisioning/Create_Database_Environment') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-				#cd $WORKSPACE/jenkins_script
-				#sudo ./FMW_DB_CREATE.sh $WORKSPACE
 
-				#Create Oracle database to be used in FMW installation
-				#cd $WORKSPACE/chef-repo
-				#chef-solo -c solo.rb -o launch_ec2::fmw_createdb -j $WORKSPACE/instance_name.json || exit 1
-				cd provision-oracle-fmw
-				ansible-playbook launch_ami.yml -e "
-instance_name=$FMW_SERVER_NAME\
-aws_region=$SERVER_AWS_REGION\
-key_name= $SERVER_KEY_NAME\
-security_group=$SERVER_SECURITY_GROUP\
-instance_type=$SERVER_INSTANCE_TYPE\
-ami_id=$SERVER_AMI_ID\
-volume_type=$SERVER_VOLUME_TYPE\
-volume_size=$SERVER_VOLUME_SIZE\
-vpc_subnet_id=$SERVER_VPC_SUBNET_ID"
+cd provision-oracle-fmw
+
+export ANSIBLE_FORCE_COLOR=true
+
+# Provision
+ansible-playbook launch_ami.yml -e "instance_name=${ENVIRONMENT}_DATABASE_SERVER aws_region=${AWS_REGION} security_group=${AWS_SECURITY_GROUP_NAME} key_pair=${AWS_KEY_PAIR} vpc_subnet_id=${AWS_SUBNET_ID} ami_id=${AWS_DB_AMI_ID} instance_type=m3.xlarge"
+
+# Error handling
+if [ $? -gt 0 ]
+then
+ ansible-playbook terminate_instances.yml
+ exit 1
+fi 
+
+
 		''')
     }
+	wrappers {
+        preBuildCleanup()
+        injectPasswords()
+        maskPasswords()
+        sshAgent("ansible-user-key")
+        credentialsBinding {
+            usernamePassword("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "aws-environment-provisioning")
+        }
 	
 }

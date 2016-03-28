@@ -4,27 +4,33 @@ freeStyleJob('Environment_Provisioning/Create_FMW_Environment') {
     label('docker')
     steps {
     shell('''#!/bin/bash
-				#cd $WORKSPACE/jenkins_script
-				#sudo ./FMW_SERVER_CREATE.sh $WORKSPACE
+cd provision-oracle-fmw
 
-				## Run chef cookbook to create a blank aws instance to be used as FMW server.
-				#cd $WORKSPACE/chef-repo
-				#chef-solo -c solo.rb -o launch_ec2::fmw_createserver -j $WORKSPACE/instance_name.json || exit 1
-		cd provision-oracle-fmw
-		ansible-playbook launch_ami.yml -e "
+export ANSIBLE_FORCE_COLOR=true
 
-instance_name=$FMW_SERVER_NAME\
-aws_region=$DB_AWS_REGION\
-key_name= $DB_KEY_NAME\
-security_group=$DB_SECURITY_GROUP\
-instance_type=$DB_INSTANCE_TYPE\
-ami_id=$DB_AMI_ID\
-volume_type=$DB_VOLUME_TYPE\
-volume_size=$DB_VOLUME_SIZE\
-vpc_subnet_id=$DB_VPC_SUBNET_ID"
-		
+# Provision
+ansible-playbook launch_ami.yml -e "instance_name=${ENVIRONMENT}_FMW_SERVER aws_region=${AWS_REGION} security_group=${AWS_SECURITY_GROUP_NAME} key_pair=${AWS_KEY_PAIR} vpc_subnet_id=${AWS_SUBNET_ID} ami_id=${AWS_RHEL_AMI_ID} instance_type=t2.large "
+
+# Error handling
+if [ $? -gt 0 ]
+then
+ ansible-playbook terminate_instances.yml
+ exit 1
+fi 
+
 		''')
     }
+	
+	wrappers {
+        preBuildCleanup()
+        injectPasswords()
+        maskPasswords()
+        sshAgent("ansible-user-key")
+        credentialsBinding {
+            usernamePassword("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "aws-environment-provisioning")
+        }
+    }
+	
     publishers {
 		downstreamParameterized {
 			trigger('Check_Instance_Status') {
