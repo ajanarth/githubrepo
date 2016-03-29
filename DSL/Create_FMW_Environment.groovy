@@ -9,8 +9,8 @@ cd provision-oracle-fmw
 export ANSIBLE_FORCE_COLOR=true
 
 # Provision
-ansible-playbook launch_ami.yml -e "instance_name=${ENVIRONMENT}_FMW_SERVER aws_region=${AWS_REGION} security_group=${AWS_SECURITY_GROUP_NAME} key_pair=${AWS_KEY_PAIR} vpc_subnet_id=${AWS_SUBNET_ID} ami_id=${AWS_RHEL_AMI_ID} instance_type=t2.large "
-
+ansible-playbook launch_ami.yml -e "instance_name='${ENVIRONMENT}_FMW_SERVER' aws_region=${AWS_REGION} security_group=${AWS_SECURITY_GROUP_NAME} key_pair=${AWS_KEY_PAIR} vpc_subnet_id=${AWS_SUBNET_ID} ami_id=${AWS_RHEL_AMI_ID} instance_type=t2.large "
+echo $(cat instace_ids.txt) > /tmp/server_id.txt
 # Error handling
 if [ $? -gt 0 ]
 then
@@ -22,7 +22,6 @@ fi
     }
 	
 	wrappers {
-        preBuildCleanup()
         injectPasswords()
         maskPasswords()
         sshAgent("ansible-user-key")
@@ -33,7 +32,7 @@ fi
 	
     publishers {
 		downstreamParameterized {
-			trigger('Check_Instance_Status') {
+			trigger('Create_Database_Environment') {
 				condition('SUCCESS')
                    parameters{
                        currentBuild()
