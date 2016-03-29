@@ -2,7 +2,7 @@
     logRotator(-1, 10)
 	
     parameters {
-	choiceParam('ENVIRONMENT', ['dev (default)', 'stage', 'prod'], '')
+	choiceParam('ENVIRONMENT', ['dev', 'stage', 'prod'], '')
 	stringParam('AWS_SUBNET_ID', 'subnet-3e660d48', '')
 	stringParam('AWS_DB_AMI_ID', 'ami-70d9e41a', '')
 	stringParam('AWS_RHEL_AMI_ID', 'ami-c46e52ae', '')
@@ -83,16 +83,6 @@
 						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')
 						predefinedProp('AWS_PEM', '/etc/fmw_oracle.pem')					
                       }//propertiesFile('$WORKSPACE/build.properties', false)                     			
-				}
-			}
-      		downstreamParameterized {
-					trigger('Create_Database_Environment') {
-								condition('SUCCESS')
-                      parameters{
-                        currentBuild()
-						predefinedProp('CUSTOM_WORKSPACE', '$WORKSPACE')
-						predefinedProp('AWS_PEM', '/etc/fmw_oracle.pem')
-                      }//propertiesFile('$WORKSPACE/build.properties', false)    			
 				}
 			}
 		}
