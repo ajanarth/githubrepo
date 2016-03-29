@@ -13,7 +13,7 @@
        volume_size: "{{ volume_size }}"
        delete_on_termination: True
     vpc_subnet_id: "{{ vpc_subnet_id }}"
-    assign_public_ip: no
+    assign_public_ip: "{{ assign_public_ip }}"
     count: 1
     instance_tags:
      Name: "{{ instance_name|lower }}"
